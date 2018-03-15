@@ -8,3 +8,4 @@ Many of the implementations are done as part of University Course or MOOC assign
 4. [An interface to tensorflow](https://github.com/thomasht86/mlfs/blob/master/Interface%20to%20tensorflow.ipynb)
 5. [Self Organizing Map for Unsupervised Learning of MNIST](https://github.com/thomasht86/mlfs/blob/master/SOM%20MNIST.ipynb)
 6. [Self Organizing Map for solving Travelling Salesperson Problem](https://github.com/thomasht86/mlfs/blob/master/SOM%20TSP.ipynb)
+7. [Genetic algorithm for solving Multi-Depot Vehicle Routing Problem](https://github.com/thomasht86/mlfs/blob/master/ga_demo.ipynb)
