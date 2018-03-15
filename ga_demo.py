@@ -1,5 +1,12 @@
-#get_ipython().magic('load_ext autoreload')
-#get_ipython().magic('autoreload')
+
+# coding: utf-8
+
+# In[66]:
+
+
+get_ipython().magic('load_ext autoreload')
+get_ipython().magic('autoreload 2')
+get_ipython().magic('matplotlib inline')
 
 import pandas as pd 
 import os
@@ -7,7 +14,7 @@ import numpy as np
 import random
 import copy
 import matplotlib
-matplotlib.use('TkAgg')
+#matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from sklearn.neighbors import BallTree
 import itertools as it
@@ -31,10 +38,6 @@ num_cpus = multiprocessing.cpu_count()
 np.set_printoptions(threshold=1000, linewidth=75)
 pd.options.mode.chained_assignment = None
 pd.set_option('display.max_columns', 15)
-
-p = int(sys.argv[1])
-
-time_limit = 60 * int(sys.argv[2])
 
 
 class Point():
@@ -207,7 +210,7 @@ class Individual(object):
         print(self.cost)
     
     def write_solution(self):
-        with open("p"+p_no+"_solution", "w") as f:
+        with open("solutions_ga/p"+p_no+"_solution", "w") as f:
             f.write("{0:.2f}".format(self.cost)+"\n")
             for depind, dep in enumerate(self.subroutes):
                 for subr_ind, subr in enumerate(dep):
@@ -234,7 +237,7 @@ class Individual(object):
         ax.scatter(depot_x, depot_y, marker='o', s=200, c = 'r')
         plt.title("Problem: "+ str(p_no) + " Cost: "+str(self.cost))
         plt.show()
-    
+        
     def save_plot(self, gen):
         customer_x = [c.x for c in customers]
         customer_y = [c.y for c in customers]
@@ -496,6 +499,13 @@ def run_exp(combs):
     res = (combs, score, ind)
     return res
 
+
+# In[67]:
+
+
+# Problem number to load
+p = 10 #int(sys.argv[1])
+time_limit = 60*0 # Number of seconds to run
 # Convert problem no to string padded with zero if less than 9.
 if p<10:
     p_no = "0"+str(p)
@@ -552,15 +562,17 @@ params = {"popsize": [100],
 
 all_combs = sorted(params)
 combinations = [dict(zip(all_combs, prod)) for prod in it.product(*(params[var] for var in all_combs))]
-
 print("Params: ")
 print(combinations[0])
 print("Stopping criteria: ")
 print("Cost: "+str(stopping_val))
 print("Time: "+str(time_limit))
 
-best, score, fit, rankdf = run_ga(stopping_val, **combinations[0])
 
+# In[68]:
+
+
+best, score, fit, rankdf = run_ga(stopping_val, **combinations[0])
 
 print("Final best score: "+str(score))
 print()
@@ -569,3 +581,10 @@ print(rankdf.loc[:, ["cost", "feasible", "avg_fp", "diversity", "final_rank"]].h
 print()
 best.write_solution()
 best.plot()
+
+
+# In[ ]:
+
+
+
+
